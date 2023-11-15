@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="RayTracing"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/root/ComputerGraphics/RayTracing/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="RayTracing">
+				<Option output="/root/ComputerGraphics/RayTracing/cmake-build-debug/RayTracing" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/root/ComputerGraphics/RayTracing/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 RayTracing"/>
+					<CompileFile command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="RayTracing/fast">
+				<Option output="/root/ComputerGraphics/RayTracing/cmake-build-debug/RayTracing" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/root/ComputerGraphics/RayTracing/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 RayTracing/fast"/>
+					<CompileFile command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/root/ComputerGraphics/RayTracing/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/root/ComputerGraphics/RayTracing/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j16 -f &quot;/root/ComputerGraphics/RayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/root/ComputerGraphics/RayTracing/AreaLight.hpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/BVH.cpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/BVH.hpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/Bounds3.hpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/Intersection.hpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/Light.hpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/Material.hpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/Object.hpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/Ray.hpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/Renderer.cpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/Renderer.hpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/Scene.cpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/Scene.hpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/Sphere.hpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/Triangle.hpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/Vector.cpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/Vector.hpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/global.hpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/main.cpp">
+			<Option target="RayTracing"/>
+		</Unit>
+		<Unit filename="/root/ComputerGraphics/RayTracing/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
