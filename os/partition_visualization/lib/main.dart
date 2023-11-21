@@ -9,6 +9,7 @@ import 'package:partition_visualization/init.dart';
 import 'package:partition_visualization/worst_fit.dart';
 
 import 'Storage.dart';
+import 'delete.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,18 +24,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.tealAccent),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Partition Visualization'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -47,21 +46,24 @@ class _MyHomePageState extends State<MyHomePage> {
   late LinkedList<Storage> list = init(memory);
   int selected = 0;
 
-  final TextEditingController idCtrl = TextEditingController();
-  final TextEditingController sizeCtrl = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
       body: SizedBox(
         height: double.infinity,
         width: double.infinity,
         child: Column(
           children: [
+            const SizedBox(height: 20.0),
+            SizedBox(
+              width: width / 1.5,
+              child: SettingPart(
+                onConfirm: (start, size) {
+                  allocate(list, start, size);
+                  setState(() {});
+                },
+              ),
+            ),
             const Expanded(child: SizedBox()),
             Container(
               height: height,
@@ -83,12 +85,30 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const Expanded(child: SizedBox()),
             SizedBox(
-              width: width,
+              width: width / 1.5,
               child: InputPart(
-                idCtrl: idCtrl,
-                sizeCtrl: sizeCtrl,
+                onConfirm: (id, size) {
+                  if (selected == 0) {
+                    firstFit(list, id, size, memory);
+                  } else if (selected == 1) {
+                    bestFit(list, id, size, memory);
+                  } else if (selected == 2) {
+                    worstFit(list, id, size, memory);
+                  }
+                  setState(() {});
+                },
                 onChanged: (val) {
                   selected = val!;
+                },
+              ),
+            ),
+            const Expanded(child: SizedBox()),
+            SizedBox(
+              width: width / 1.5,
+              child: DeletePart(
+                onConfirm: (id) {
+                  deleteStorage(list, id);
+                  setState(() {});
                 },
               ),
             ),
@@ -96,21 +116,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          int id = int.parse(idCtrl.text);
-          int size = int.parse(sizeCtrl.text);
-          if (selected == 0) {
-            firstFit(list, id, size, memory);
-          } else if (selected == 1) {
-            bestFit(list, id, size, memory);
-          } else if (selected == 2) {
-            worstFit(list, id, size, memory);
-          }
-          setState(() {});
-        },
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
@@ -165,18 +170,111 @@ class _BlockState extends State<Block> {
               ),
             ),
           ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Text(
+              "id: ${widget.storage.id}",
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 10,
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
+class SettingPart extends StatefulWidget {
+  final Function(int, int) onConfirm;
+
+  const SettingPart({required this.onConfirm, super.key});
+
+  @override
+  State<SettingPart> createState() => _SettingPartState();
+}
+
+class _SettingPartState extends State<SettingPart> {
+  final TextEditingController startCtrl = TextEditingController();
+  final TextEditingController sizeCtrl = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Text("起始位置: "),
+        Expanded(
+          child: TextField(
+            controller: startCtrl,
+            textAlign: TextAlign.center,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          ),
+        ),
+        const SizedBox(width: 20.0),
+        const Text("占用大小: "),
+        Expanded(
+          child: TextField(
+            controller: sizeCtrl,
+            textAlign: TextAlign.center,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          ),
+        ),
+        const SizedBox(width: 20.0),
+        ElevatedButton(
+          onPressed: () {
+            int start = int.parse(startCtrl.text);
+            int size = int.parse(sizeCtrl.text);
+            widget.onConfirm(start, size);
+          },
+          child: const Text("添加初始占用区"),
+        ),
+      ],
+    );
+  }
+}
+
+class DeletePart extends StatefulWidget {
+  final Function(int) onConfirm;
+
+  const DeletePart({required this.onConfirm, super.key});
+
+  @override
+  State<DeletePart> createState() => _DeletePartState();
+}
+
+class _DeletePartState extends State<DeletePart> {
+  final TextEditingController idCtrl = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Text("id : ", style: TextStyle(fontSize: 20)),
+        Expanded(
+          child: TextField(
+            controller: idCtrl,
+            textAlign: TextAlign.center,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          ),
+        ),
+        const SizedBox(width: 20),
+        ElevatedButton(
+            onPressed: () {
+              int id = int.parse(idCtrl.text);
+              widget.onConfirm(id);
+            },
+            child: const Text("回收")),
+      ],
+    );
+  }
+}
+
 class InputPart extends StatefulWidget {
-  final TextEditingController? idCtrl;
-  final TextEditingController? sizeCtrl;
+  final Function(int, int) onConfirm;
   final ValueChanged<int?>? onChanged;
 
-  const InputPart({this.idCtrl, this.sizeCtrl, this.onChanged, super.key});
+  const InputPart({required this.onConfirm, this.onChanged, super.key});
 
   @override
   State<InputPart> createState() => _InputPartState();
@@ -184,6 +282,8 @@ class InputPart extends StatefulWidget {
 
 class _InputPartState extends State<InputPart> {
   var groupValue = 0;
+  final TextEditingController idCtrl = TextEditingController();
+  final TextEditingController sizeCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -213,18 +313,28 @@ class _InputPartState extends State<InputPart> {
             const Text("id : ", style: TextStyle(fontSize: 20)),
             Expanded(
               child: TextField(
-                controller: widget.idCtrl,
+                controller: idCtrl,
+                textAlign: TextAlign.center,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               ),
             ),
-            const SizedBox(width: 10),
+            const SizedBox(width: 20),
             const Text("size : ", style: TextStyle(fontSize: 20)),
             Expanded(
               child: TextField(
-                controller: widget.sizeCtrl,
+                controller: sizeCtrl,
+                textAlign: TextAlign.center,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               ),
             ),
+            const SizedBox(width: 20),
+            ElevatedButton(
+                onPressed: () {
+                  int id = int.parse(idCtrl.text);
+                  int size = int.parse(sizeCtrl.text);
+                  widget.onConfirm(id, size);
+                },
+                child: const Text("分配")),
           ],
         )
       ],

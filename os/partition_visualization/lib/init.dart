@@ -7,11 +7,11 @@ import 'Storage.dart';
 LinkedList<Storage> init(int memory) {
   final list = LinkedList<Storage>();
   list.add(Storage(-1, memory, 0, memory - 1, 0));
-  final start = [500, 1000, 2000];
-  final size = [100, 200, 300];
-  for (int i = 0; i < 3; i++) {
-    allocate(list, start[i], size[i]);
-  }
+  // final start = [500, 1000, 2000];
+  // final size = [100, 200, 300];
+  // for (int i = 0; i < 3; i++) {
+  //   allocate(list, start[i], size[i]);
+  // }
   return list;
 }
 
