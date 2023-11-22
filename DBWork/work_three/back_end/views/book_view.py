@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 
 from database import db
-from entity import Book, User
+from entity import Book, User, Multiuser
 from .response import Response
 
 book_bp = Blueprint('book', __name__, url_prefix='/book')
@@ -51,7 +51,6 @@ def get():
             data["multi"].append(a_multiuser_book)
         return Response(data=data).to_json()
 
-
 @book_bp.route('/add', methods=['POST'])
 def add():
     name = request.form.get('name')
@@ -65,6 +64,25 @@ def add():
         db.session.add(book)
         db.session.commit()
         return Response(msg="添加成功").to_json()
+
+@book_bp.route('/addMulti', methods=['POST'])
+def add_multi():
+    name = request.form.get('name')
+    author = request.form.get('author')
+    description = request.form.get('description')
+    user = User.query.filter_by(username=author).first()
+    multi = request.form.get('multi').split(',')
+    if user is None:
+        return Response(404, "用户不存在").to_json()
+    else:
+        book = Book(name=name, user_id=user.id, description=description)
+        for m in multi:
+            multiuser = Multiuser(user_id=User.query.filter_by(username=m).first().id)
+            book.multiuser.append(multiuser)
+        db.session.add(book)
+        db.session.commit()
+        return Response(msg="添加成功").to_json()
+
 
 
 @book_bp.route('/delete', methods=['DELETE'])

@@ -28,12 +28,22 @@ def get():
 
 @record_bp.route('/add', methods=['POST'])
 def add():
+    
     book_id = request.form.get('book_id')
-    type_id = request.form.get('type_id')
+    type_name = request.form.get('type_name')
+    name = request.form.get('name')
     price = request.form.get('price')
     is_in = request.form.get('is_in')
-    record = Record(book_id=book_id, type_id=type_id, price=price, is_in=is_in)
+    is_in = True if is_in == "true" else False
+    type_record = Type.query.filter_by(name=type_name).first()
+    if (type_record is None) and (type_name is not None):
+        type_record = Type(name=type_name)
+        db.session.add(type_record)
+        db.session.commit()
+    type_id = type_record.id
+    record = Record(book_id=book_id, type_id=type_id, name=name, price=price, is_in=is_in)
     db.session.add(record)
+    db.session.commit()
     return Response(data={"id": record.id}, msg="添加成功").to_json()
 
 

@@ -9,10 +9,15 @@ import 'mydialog.dart';
 
 class GoalRecordCol extends StatelessWidget {
   final num goalId;
+  final String goalName;
   final Function onRefresh;
 
-  const GoalRecordCol(
-      {required this.goalId, required this.onRefresh, super.key});
+  const GoalRecordCol({
+    required this.goalId,
+    required this.goalName,
+    required this.onRefresh,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +27,13 @@ class GoalRecordCol extends StatelessWidget {
         if (snapshot.hasData) {
           List<GoalRecord> data = snapshot.data!;
           return ListContainer(
-            title: "存钱记录",
+            title: "($goalName)的存钱记录",
             onTapAdd: () => {
               showDialog(
                 context: context,
-                builder: (context) => MyDialog(),
+                builder: (context) => MyDialog(
+                  child: GoalRecordAddView(goalId: goalId),
+                ),
               )
             },
             children: List.generate(

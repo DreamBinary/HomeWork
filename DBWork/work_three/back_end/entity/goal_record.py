@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import datetime
 
 from database import db
 
@@ -19,7 +20,7 @@ class GoalRecord(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, comment="primary key")
     goal_id = db.Column(db.Integer, db.ForeignKey("goal.id", ondelete='cascade'))
     money = db.Column(db.Float, nullable=False, comment="存入金额")
-    create_time = db.Column(db.DateTime, nullable=False, comment="创建时间")
+    create_time = db.Column(db.DateTime, nullable=False, default=datetime.now(),  comment="创建时间")
 
     def __repr__(self):
         return f"<GoalRecord goal_id:{self.goal_id} save_money:{self.save_money}>"

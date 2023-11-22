@@ -9,7 +9,7 @@ import 'goal_view.dart';
 
 class GoalCol extends StatelessWidget {
   final String username;
-  final Function(num) onTapGoal;
+  final Function(num, String) onTapGoal;
   final Function onRefresh;
 
   const GoalCol(
@@ -27,12 +27,21 @@ class GoalCol extends StatelessWidget {
             List<Goal> data = snapshot.data!;
             return ListContainer(
               title: "目标记录",
+              onTapAdd: () async {
+                await showDialog(
+                  context: context,
+                  builder: (context) => MyDialog(
+                    child: GoalAddView(author: username),
+                  ),
+                );
+                onRefresh();
+              },
               children: List.generate(
                 data.length,
                 (index) => Item(
                   title: data[index].name,
                   onLongPress: () => {
-                    onTapGoal(data[index].id),
+                    onTapGoal(data[index].id, data[index].name),
                   },
                   onTap: () async => {
                     await showDialog(

@@ -9,7 +9,7 @@ import 'mydialog.dart';
 
 class BookCol extends StatelessWidget {
   final String username;
-  final Function(num) onTapBook;
+  final Function(num, String) onTapBook;
   final Function onRefresh;
 
   const BookCol(
@@ -32,12 +32,21 @@ class BookCol extends StatelessWidget {
                 Expanded(
                   child: ListContainer(
                     title: "创建账本",
+                    onTapAdd: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (context) => MyDialog(
+                          child: BookAddView(author: username),
+                        ),
+                      );
+                      onRefresh();
+                    },
                     children: List.generate(
                       selfBook!.length,
                       (index) => Item(
                         title: selfBook[index].name,
                         onLongPress: () => {
-                          onTapBook(selfBook[index].id),
+                          onTapBook(selfBook[index].id, selfBook[index].name),
                         },
                         onTap: () async => {
                           await showDialog(
@@ -57,12 +66,21 @@ class BookCol extends StatelessWidget {
                 Expanded(
                   child: ListContainer(
                     title: "多人账本",
+                    onTapAdd: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (context) => MyDialog(
+                          child: MultiBookAddView(author: username),
+                        ),
+                      );
+                      onRefresh();
+                    },
                     children: List.generate(
                       multiBook!.length,
                       (index) => Item(
                         title: multiBook[index].name,
                         onLongPress: () => {
-                          onTapBook(multiBook[index].id),
+                          onTapBook(selfBook[index].id, selfBook[index].name),
                         },
                         onTap: () async => {
                           await showDialog(

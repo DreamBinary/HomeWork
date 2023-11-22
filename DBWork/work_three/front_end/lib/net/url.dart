@@ -1,9 +1,12 @@
 class Url {
   static String login = "/user/login";
   static String register = "/user/register";
+  static String updatePsw = "/user/update";
+  static String deleteUser = "/user/delete";
 
   static String getBook = "/book/get";
   static String addBook = "/book/add";
+  static String addMultiBook = "/book/addMulti";
   static String deleteBook = "/book/delete";
   static String updateBook = "/book/update";
 

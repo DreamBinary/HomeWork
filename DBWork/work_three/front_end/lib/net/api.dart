@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:db_show/entity/Goal.dart';
 import 'package:db_show/entity/goal_record.dart';
 import 'package:db_show/net/url.dart';
@@ -9,6 +7,61 @@ import '../entity/book_record.dart';
 import 'dio.dart';
 
 class Api {
+  // login
+  static Future<String?> login(String username, String password) async {
+    var response = await DioUtil().postForm(
+        Url.login,
+        {
+          "username": username,
+          "password": password,
+        },
+        null);
+    if (response?.data["code"] == 200) {
+      return response?.data["msg"];
+    }
+    return null;
+  }
+
+  // register
+  static Future<String?> register(String username, String password) async {
+    var response = await DioUtil().postForm(
+        Url.register,
+        {
+          "username": username,
+          "password": password,
+        },
+        null);
+    if (response?.data["code"] == 200) {
+      return response?.data["msg"];
+    }
+    return null;
+  }
+
+  // change password
+  static Future<String?> changePsw(
+      String username, String oldPassword, String newPassword) async {
+    var response = await DioUtil().putForm(Url.updatePsw, {
+      "username": username,
+      "old_password": oldPassword,
+      "new_password": newPassword,
+    });
+    if (response?.data["code"] == 200) {
+      return response?.data["msg"];
+    }
+    return null;
+  }
+
+  static Future<String?> logout(String username, String password) async {
+    var response = await DioUtil().deleteForm(
+        Url.deleteUser, {"username": username, "password": password});
+    if (response?.data["code"] == 200) {
+      return response?.data["msg"];
+    }
+    return null;
+  }
+
+  // update
+
   static Future<Map<String, List<Book>>?> getBook(String username) async {
     var response =
         await DioUtil().get(Url.getBook, map: {"username": username});
@@ -31,6 +84,23 @@ class Api {
           "name": name,
           "author": author,
           "description": description,
+        },
+        null);
+    if (response?.data["code"] == 200) {
+      return true;
+    }
+    return false;
+  }
+
+  static Future<bool?> addMultiBook(
+      String name, String author, String description, String multiUser) async {
+    var response = await DioUtil().postForm(
+        Url.addMultiBook,
+        {
+          "name": name,
+          "author": author,
+          "description": description,
+          "multi": multiUser,
         },
         null);
     if (response?.data["code"] == 200) {
@@ -73,7 +143,7 @@ class Api {
 
       return result;
     }
-    return null;
+    return [];
   }
 
   //delete
@@ -132,13 +202,14 @@ class Api {
   }
 
   static Future<bool?> addGoal(
-      String name, String description, num goalMoney) async {
+      String name, String description, num goalMoney, String username) async {
     var response = await DioUtil().postForm(
         Url.addGoal,
         {
           "name": name,
           "description": description,
           "goal_money": goalMoney,
+          "username": username,
         },
         null);
     if (response?.data["code"] == 200) {
@@ -179,7 +250,7 @@ class Api {
           List<GoalRecord>.from(data.map((e) => GoalRecord.fromJson(e)));
       return result;
     }
-    return null;
+    return [];
   }
 
   static Future<bool?> addGoalRecord(num goalId, num money) async {

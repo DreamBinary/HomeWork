@@ -11,8 +11,11 @@ goal_record_bp = Blueprint('goal_record', __name__, url_prefix='/goal_record')
 def get():
     goal_id = request.args.get('goal_id')
     goal = Goal.query.filter_by(id=goal_id).first()
-    goal_record = goal.goal_record
     data = []
+    if goal is None:
+        return Response(404, msg="目标不存在").to_json()
+    goal_record = goal.goal_record
+
     for r in goal_record:
         data.append({
             "record_id": r.id,

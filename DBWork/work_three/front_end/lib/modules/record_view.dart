@@ -75,3 +75,51 @@ class RecordView extends StatelessWidget {
     );
   }
 }
+
+class RecordAddView extends StatelessWidget {
+  final num bookId;
+
+  const RecordAddView({required this.bookId, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final name = TextEditingController();
+    final price = TextEditingController();
+    final type = TextEditingController();
+    final isIn = TextEditingController();
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: Column(
+        children: [
+          const Text("账本记录", style: TextStyle(fontSize: 20)),
+          TextRow(title: "记录名 : ", controller: name),
+          TextRow(title: "金额 : ", controller: price, isNum: true),
+          TextRow(title: "类型 : ", controller: type),
+          TextRow(
+            title: "是否为收入 : ",
+            readOnly: true,
+            controller: isIn,
+            onTap: () => {isIn.text = (isIn.text == "false").toString()},
+          ),
+          const Expanded(child: SizedBox()),
+          ElevatedButton(
+            onPressed: () => {
+              Api.addRecord(
+                bookId,
+                name.text,
+                type.text,
+                num.parse(price.text),
+                bool.parse(isIn.text),
+              ),
+              Navigator.pop(context),
+            },
+            child: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: Text("添加"),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

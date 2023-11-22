@@ -1,4 +1,3 @@
-import 'package:db_show/entity/book_record.dart';
 import 'package:db_show/entity/goal_record.dart';
 import 'package:db_show/modules/text_row.dart';
 import 'package:db_show/net/api.dart';
@@ -51,6 +50,37 @@ class GoalRecordView extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class GoalRecordAddView extends StatelessWidget {
+  final num goalId;
+
+  const GoalRecordAddView({required this.goalId, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final money = TextEditingController();
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: Column(
+        children: [
+          const Text("存钱记录", style: TextStyle(fontSize: 20)),
+          TextRow(title: "存钱金额 : ", controller: money, isNum: true),
+          const Expanded(child: SizedBox()),
+          ElevatedButton(
+            onPressed: () => {
+              Api.addGoalRecord(goalId, num.parse(money.text)),
+              Navigator.pop(context),
+            },
+            child: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: Text("添加"),
+            ),
           ),
         ],
       ),

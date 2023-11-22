@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import datetime
 
 from database import db
 
@@ -25,9 +26,9 @@ class Goal(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id", ondelete='cascade'))
     name = db.Column(db.String(50), nullable=False, comment="目标名称")
     goal_money = db.Column(db.Float, nullable=False, comment="目标金额")
-    saved_money = db.Column(db.Float, nullable=False, comment="已存金额")
-    create_time = db.Column(db.DateTime, nullable=False, comment="创建时间")
-    update_time = db.Column(db.DateTime, nullable=False, comment="更新时间")
+    saved_money = db.Column(db.Float, nullable=False, default=0, comment="已存金额")
+    create_time = db.Column(db.DateTime, nullable=False, default=datetime.now(), comment="创建时间")
+    update_time = db.Column(db.DateTime, nullable=False, default=datetime.now(), comment="更新时间")
     description = db.Column(db.String(200))
 
     goal_record = db.relationship("GoalRecord", backref="goal", passive_deletes=True)

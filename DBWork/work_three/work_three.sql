@@ -9,8 +9,7 @@ create table if not exists user
 (
     id       int         not null primary key auto_increment comment 'primary key',
     username varchar(50) not null unique comment '用户名',
-    password varchar(50) not null,
-    email    varchar(50) not null
+    password varchar(50) not null comment '密码'
 ) engine = InnoDB
   default charset = utf8mb4 comment '用户表';
 
@@ -136,11 +135,11 @@ values ('餐饮'),
        ('人情'),
        ('其他');
 
-insert into user (username, password, email)
-values ('user1', '123456', '123@gmail.com'),
-       ('user2', '123456', '1234@gmail.com'),
-       ('user3', '123456', '12345@gmai.com'),
-       ('user4', '123456', '123456@gmai.com');
+insert into user (username, password)
+values ('user1', '123456'),
+       ('user2', '123456'),
+       ('user3', '123456'),
+       ('user4', '123456');
 
 insert into account.book (name, user_id, description)
 values ('book1', 1, 'this is a book'),

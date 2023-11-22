@@ -9,9 +9,15 @@ import 'mydialog.dart';
 
 class RecordCol extends StatelessWidget {
   final num bookId;
+  final String bookName;
   final Function onRefresh;
 
-  const RecordCol({required this.bookId, required this.onRefresh, super.key});
+  const RecordCol({
+    required this.bookId,
+    required this.bookName,
+    required this.onRefresh,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +27,15 @@ class RecordCol extends StatelessWidget {
         if (snapshot.hasData) {
           List<BookRecord> data = snapshot.data!;
           return ListContainer(
-            title: "账单记录",
-            onTapAdd: () => {
-              showDialog(
+            title: "($bookName)的账单记录",
+            onTapAdd: () async {
+              await showDialog(
                 context: context,
-                builder: (context) => MyDialog(),
-              )
+                builder: (context) => MyDialog(
+                  child: RecordAddView(bookId: bookId),
+                ),
+              );
+              onRefresh();
             },
             children: List.generate(
               data.length,
