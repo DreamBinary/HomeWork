@@ -1,18 +1,20 @@
 import 'package:db_show/entity/book_record.dart';
 import 'package:db_show/modules/text_row.dart';
+import 'package:db_show/modules/type_row.dart';
 import 'package:db_show/net/api.dart';
 import 'package:flutter/material.dart';
 
 class RecordView extends StatelessWidget {
+  final List<String> typeList;
   final BookRecord record;
 
-  const RecordView({required this.record, super.key});
+  const RecordView({required this.record, required this.typeList, super.key});
 
   @override
   Widget build(BuildContext context) {
     final name = TextEditingController(text: record.name);
     final price = TextEditingController(text: record.price.toString());
-    final type = TextEditingController(text: record.typeName);
+    num type = record.typeId;
     final isIn = TextEditingController(text: record.isIn.toString());
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -21,7 +23,12 @@ class RecordView extends StatelessWidget {
           const Text("账本记录", style: TextStyle(fontSize: 20)),
           TextRow(title: "记录名 : ", controller: name),
           TextRow(title: "金额 : ", controller: price, isNum: true),
-          TextRow(title: "类型 : ", controller: type),
+          TypeRow(
+            defaultValue: type,
+            title: "类型 : ",
+            items: typeList,
+            onChanged: (value) => type = value,
+          ),
           TextRow(
             title: "是否为收入 : ",
             readOnly: true,
@@ -57,7 +64,7 @@ class RecordView extends StatelessWidget {
                   Api.updateRecord(
                     record.id,
                     name.text,
-                    type.text,
+                    type,
                     num.parse(price.text),
                     bool.parse(isIn.text),
                   ),
@@ -77,15 +84,20 @@ class RecordView extends StatelessWidget {
 }
 
 class RecordAddView extends StatelessWidget {
+  final List<String> typeList;
   final num bookId;
 
-  const RecordAddView({required this.bookId, super.key});
+  const RecordAddView({
+    required this.bookId,
+    required this.typeList,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     final name = TextEditingController();
     final price = TextEditingController();
-    final type = TextEditingController();
+    num type = 0;
     final isIn = TextEditingController();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -94,7 +106,12 @@ class RecordAddView extends StatelessWidget {
           const Text("账本记录", style: TextStyle(fontSize: 20)),
           TextRow(title: "记录名 : ", controller: name),
           TextRow(title: "金额 : ", controller: price, isNum: true),
-          TextRow(title: "类型 : ", controller: type),
+          TypeRow(
+            defaultValue: 0,
+            title: "类型 : ",
+            items: typeList,
+            onChanged: (value) => type = value,
+          ),
           TextRow(
             title: "是否为收入 : ",
             readOnly: true,
@@ -107,7 +124,7 @@ class RecordAddView extends StatelessWidget {
               Api.addRecord(
                 bookId,
                 name.text,
-                type.text,
+                type,
                 num.parse(price.text),
                 bool.parse(isIn.text),
               ),

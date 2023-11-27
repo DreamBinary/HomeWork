@@ -73,7 +73,7 @@ class Api {
       });
       return result;
     }
-    return null;
+    return {"self": [], "multi": []};
   }
 
   static Future<bool?> addBook(
@@ -140,7 +140,7 @@ class Api {
       var data = response?.data["data"];
       var result =
           List<BookRecord>.from(data.map((e) => BookRecord.fromJson(e)));
-
+      print(result);
       return result;
     }
     return [];
@@ -158,11 +158,11 @@ class Api {
 
   //update
   static Future<bool?> updateRecord(
-      num recordId, String name, String typeName, num price, bool isIn) async {
+      num recordId, String name, num typeId, num price, bool isIn) async {
     var response = await DioUtil().putForm(Url.updateRecord, {
       "record_id": recordId,
       "name": name,
-      "type_name": typeName,
+      "type_id": typeId + 1,
       "price": price,
       "is_in": isIn,
     });
@@ -173,13 +173,13 @@ class Api {
   }
 
   static Future<bool?> addRecord(
-      num bookId, String name, String typeName, num price, bool isIn) async {
+      num bookId, String name, num typeId, num price, bool isIn) async {
     var response = await DioUtil().postForm(
         Url.addRecord,
         {
           "book_id": bookId,
           "name": name,
-          "type_name": typeName,
+          "type_id": typeId + 1,
           "price": price,
           "is_in": isIn,
         },
@@ -285,5 +285,15 @@ class Api {
       return true;
     }
     return false;
+  }
+
+  static Future<List<String>> getType() async {
+    var response = await DioUtil().get(Url.getType);
+    if (response?.data["code"] == 200) {
+      var data = response?.data["data"];
+      var result = List<String>.from(data.map((e) => e.toString()));
+      return result;
+    }
+    return [];
   }
 }

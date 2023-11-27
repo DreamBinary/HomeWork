@@ -24,4 +24,6 @@ class Url {
   static String addGoalRecord = "/goal_record/add";
   static String deleteGoalRecord = "/goal_record/delete";
   static String updateGoalRecord = "/goal_record/update";
+
+  static String getType = "/type/get";
 }

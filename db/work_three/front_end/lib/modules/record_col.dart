@@ -9,12 +9,14 @@ import 'mydialog.dart';
 
 class RecordCol extends StatelessWidget {
   final num bookId;
+  final List<String> typeList;
   final String bookName;
   final Function onRefresh;
 
   const RecordCol({
     required this.bookId,
     required this.bookName,
+    required this.typeList,
     required this.onRefresh,
     super.key,
   });
@@ -23,16 +25,17 @@ class RecordCol extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: Api.getRecord(bookId),
+      
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<BookRecord> data = snapshot.data!;
           return ListContainer(
-            title: "($bookName)的账单记录",
+            title: bookName == "null" ? bookName : "$bookName的账单记录",
             onTapAdd: () async {
               await showDialog(
                 context: context,
                 builder: (context) => MyDialog(
-                  child: RecordAddView(bookId: bookId),
+                  child: RecordAddView(bookId: bookId, typeList: typeList),
                 ),
               );
               onRefresh();
@@ -48,6 +51,7 @@ class RecordCol extends StatelessWidget {
                     builder: (context) => MyDialog(
                       child: RecordView(
                         record: data[index],
+                        typeList: typeList,
                       ),
                     ),
                   ),

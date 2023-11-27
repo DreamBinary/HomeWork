@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+123from flask import Blueprint, request
 
 from database import db
 from entity import Record, Type
@@ -13,34 +13,27 @@ def get():
     records = Record.query.filter_by(book_id=book_id).all()
     data = []
     for record in records:
-        type_name = Type.query.filter_by(id=record.type_id).first().name
         data.append({
             "record_id": record.id,
             "name": record.name,
-            "type_name": type_name,
+            "type_id": record.type_id,
             "price": record.price,
             "is_in": record.is_in,
             "create_time": record.create_time,
             "update_time": record.update_time
         })
+    print(data)
     return Response(data=data).to_json()
 
 
 @record_bp.route('/add', methods=['POST'])
 def add():
-    
     book_id = request.form.get('book_id')
-    type_name = request.form.get('type_name')
+    type_id = request.form.get('type_id')
     name = request.form.get('name')
     price = request.form.get('price')
     is_in = request.form.get('is_in')
     is_in = True if is_in == "true" else False
-    type_record = Type.query.filter_by(name=type_name).first()
-    if (type_record is None) and (type_name is not None):
-        type_record = Type(name=type_name)
-        db.session.add(type_record)
-        db.session.commit()
-    type_id = type_record.id
     record = Record(book_id=book_id, type_id=type_id, name=name, price=price, is_in=is_in)
     db.session.add(record)
     db.session.commit()
@@ -63,7 +56,7 @@ def delete():
 def update():
     record_id = request.form.get('record_id')
     name = request.form.get('name')
-    type_name = request.form.get('type_name')
+    type_id = request.form.get('type_id')
     price = request.form.get('price')
     is_in = request.form.get('is_in')
     record = Record.query.filter_by(id=record_id).first()
@@ -71,13 +64,6 @@ def update():
     if record is None:
         return Response(404, "记录不存在").to_json()
     else:
-        type_record = Type.query.filter_by(name=type_name).first()
-        if (type_record is None) and (type_name is not None):
-            type_record = Type(name=type_name)
-            db.session.add(type_record)
-            db.session.commit()
-        type_id = type_record.id
-
         record.type_id = type_id if type_id is not None else record.type_id
         record.name = name if name is not None else record.name
         record.price = price if price is not None else record.price

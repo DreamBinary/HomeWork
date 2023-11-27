@@ -1,6 +1,7 @@
 import 'package:db_show/net/api.dart';
 import 'package:db_show/toast.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EnterView extends StatefulWidget {
   final Function(String) onLogin;
@@ -205,6 +206,10 @@ class _LoginViewState extends State<LoginView> {
                   toast(result);
                 }
                 if (result == "登录成功") {
+                  final SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  await prefs.setBool('isLogin', true);
+                  await prefs.setString('username', _usernameCtrl.text);
                   widget.onLogin(_usernameCtrl.text);
                 }
               },

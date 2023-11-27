@@ -17,12 +17,13 @@ def create_app():
     # with app.app_context():
     #     db.drop_all()
     #     db.create_all()
-    from views import user_bp, record_bp, book_bp, goal_bp, goal_record_bp
+    from views import user_bp, record_bp, book_bp, goal_bp, goal_record_bp, type_bp
     app.register_blueprint(user_bp)
     app.register_blueprint(record_bp)
     app.register_blueprint(book_bp)
     app.register_blueprint(goal_bp)
     app.register_blueprint(goal_record_bp)
+    app.register_blueprint(type_bp)
     app.run()
 
 

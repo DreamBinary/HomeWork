@@ -1,3 +1,5 @@
+import '../time_util.dart';
+
 /// create_time : "Fri, 10 Nov 2023 02:11:15 GMT"
 /// money : 100
 /// record_id : 1
@@ -6,7 +8,7 @@ class GoalRecord {
   GoalRecord(this._createTime, this._money, this._recordId);
 
   factory GoalRecord.fromJson(dynamic json) => GoalRecord(
-        json['create_time'] as String,
+        TimeUtil.formatStringTime(json['create_time'] as String),
         json['money'] as num,
         json['record_id'] as num,
       );

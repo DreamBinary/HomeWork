@@ -1,3 +1,5 @@
+import 'package:db_show/time_util.dart';
+
 /// author : "user"
 /// create_time : "Wed, 08 Nov 2023 15:46:03 GMT"
 /// description : "this is a book"
@@ -20,12 +22,12 @@ class Book {
 
   factory Book.fromJson(dynamic json) => Book(
         json['author'] as String,
-        json['create_time'] as String,
+        TimeUtil.formatStringTime(json['create_time'] as String),
         json['description'] as String,
         json['id'] as num,
         json['multiuser'] != null ? json['multiuser'].cast<String>() : [],
         json['name'] as String,
-        json['update_time'] as String,
+        TimeUtil.formatStringTime(json['update_time'] as String),
       );
 
   @override

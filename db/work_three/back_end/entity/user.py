@@ -26,3 +26,4 @@ class User(db.Model):
 
     def __repr__(self):
         return f"<User username:{self.username} email:{self.email} is_admin:{self.is_admin}>"
+

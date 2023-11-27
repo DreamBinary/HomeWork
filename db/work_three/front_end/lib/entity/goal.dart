@@ -1,3 +1,5 @@
+import 'package:db_show/time_util.dart';
+
 /// create_time : "Fri, 10 Nov 2023 01:25:57 GMT"
 /// description : "买一辆车"
 /// goal_money : 100000
@@ -21,14 +23,15 @@ class Goal {
       this._name, this._savedMoney, this._savedRecord, this._updateTime);
 
   factory Goal.fromJson(dynamic json) => Goal(
-      json['create_time'] as String,
-      json['description'] as String,
-      json['goal_money'] as num,
-      json['goal_id'] as num,
-      json['name'] as String,
-      json['saved_money'] as num,
-      json['saved_record'] != null ? json['saved_record'].cast<num>() : [],
-      json['update_time'] as String);
+        TimeUtil.formatStringTime(json['create_time'] as String),
+        json['description'] as String,
+        json['goal_money'] as num,
+        json['goal_id'] as num,
+        json['name'] as String,
+        json['saved_money'] as num,
+        json['saved_record'] != null ? json['saved_record'].cast<num>() : [],
+        TimeUtil.formatStringTime(json['update_time'] as String),
+      );
 
   String get createTime => _createTime;
 

@@ -1,11 +1,13 @@
+import 'package:db_show/modules/enter.dart';
 import 'package:db_show/modules/goal_col.dart';
 import 'package:db_show/modules/goal_record_col.dart';
-import 'package:db_show/modules/enter.dart';
 import 'package:db_show/modules/record_col.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'modules/book_col.dart';
+import 'net/api.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +25,13 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       builder: FToastBuilder(),
-      home: const Main(),
+      home: const DefaultTextStyle(
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 20,
+        ),
+        child: Main(),
+      ),
     );
   }
 }
@@ -40,9 +48,26 @@ class _MainState extends State<Main> {
   var username = "";
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SharedPreferences.getInstance().then((prefs) => {
+          setState(() {
+            isLogin = prefs.getBool('isLogin') ?? false;
+            username = prefs.getString('username') ?? "";
+          })
+        });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return isLogin
-        ? MainPage(username: username)
+        ? MainPage(
+            username: username,
+            onLogout: () => setState(() {
+              isLogin = false;
+            }),
+          )
         : EnterView(
             onLogin: (username) {
               setState(() {
@@ -56,8 +81,9 @@ class _MainState extends State<Main> {
 
 class MainPage extends StatefulWidget {
   final String username;
+  final Function onLogout;
 
-  const MainPage({required this.username, super.key});
+  const MainPage({required this.username, required this.onLogout, super.key});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -68,6 +94,18 @@ class _MainPageState extends State<MainPage> {
   num goalId = -1;
   String bookName = "null";
   String goalName = "null";
+  List<String> typeList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Api.getType().then((value) => {
+          setState(() {
+            typeList = value;
+          })
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +136,7 @@ class _MainPageState extends State<MainPage> {
                   ),
                   Expanded(
                     child: RecordCol(
+                      typeList: typeList,
                       bookId: bookId,
                       bookName: bookName,
                       onRefresh: () => {
@@ -134,6 +173,15 @@ class _MainPageState extends State<MainPage> {
           },
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            final SharedPreferences prefs =
+                await SharedPreferences.getInstance();
+            await prefs.setBool('isLogin', false);
+            await prefs.remove('username');
+            widget.onLogout();
+          },
+          child: const Icon(Icons.logout)),
     );
   }
 }

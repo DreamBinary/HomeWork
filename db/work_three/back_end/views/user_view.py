@@ -8,8 +8,6 @@ from views.response import Response
 user_bp = Blueprint('user', __name__, url_prefix='/user')
 
 
-# todo check
-
 @user_bp.route('/login', methods=['POST'])
 def login():
     username = request.form.get('username')

@@ -27,7 +27,7 @@ class GoalRecordCol extends StatelessWidget {
         if (snapshot.hasData) {
           List<GoalRecord> data = snapshot.data!;
           return ListContainer(
-            title: "($goalName)的存钱记录",
+            title: goalName == "null" ? goalName : "$goalName的存钱记录",
             onTapAdd: () => {
               showDialog(
                 context: context,

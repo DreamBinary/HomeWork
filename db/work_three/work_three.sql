@@ -133,25 +133,26 @@ values ('餐饮'),
        ('数码'),
        ('汽车'),
        ('人情'),
+       ('工作'),
        ('其他');
 
 insert into user (username, password)
-values ('user1', '123456'),
-       ('user2', '123456'),
-       ('user3', '123456'),
-       ('user4', '123456');
+values ('12345', '12345'),
+       ('123456', '123456'),
+       ('1234567', '1234567'),
+       ('12345678', '12345678');
 
 insert into account.book (name, user_id, description)
-values ('book1', 1, 'this is a book'),
-       ('book2', 2, 'this is a book1'),
-       ('book3', 3, 'this is a book2'),
-       ('book4', 4, 'this is a book3');
+values ('日常开销', 1, '记录日常吃饭，出行的账单'),
+       ('每月收入', 2, '记录每月收入'),
+       ('每月房租', 3, '记录每月房租和水电费'),
+       ('特殊开销', 4, '记录医疗开销等');
 
 insert into account.record (book_id, type_id, name, price, is_in)
 values (1, 1, '吃饭', 100, 0),
-       (2, 1, '家教', 200, 1),
-       (1, 1, '吃饭', 300, 0),
-       (2, 1, '家教', 400, 1);
+       (2, 13, '家教', 400, 1),
+       (1, 1, '汽车', 200, 0),
+       (2, 17, '工资', 4000, 1);
 
 insert into account.multiuser (book_id, user_id)
 values (1, 2),
@@ -161,8 +162,8 @@ values (1, 2),
        (2, 4);
 
 insert into account.goal (user_id, name, goal_money, saved_money, description)
-values (1, '买车', 100000, 0, '买一辆车'),
-       (1, '买房', 1000000, 0, '买一套房'),
+values (1, '买车', 200000, 30000, '买一辆车'),
+       (1, '买房', 1000000, 200000, '买一套房'),
        (3, '买手机', 10000, 0, '买一部手机'),
        (4, '买电脑', 10000, 0, '买一台电脑');
 
