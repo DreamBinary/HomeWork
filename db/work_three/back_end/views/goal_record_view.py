@@ -62,4 +62,4 @@ def update():
         if money is not None:
             record.money = money
         db.session.commit()
-        return Response(msg="修改成功").to_json()
+        return Response(msg="更新成功").to_json()

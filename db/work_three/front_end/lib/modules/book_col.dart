@@ -80,7 +80,7 @@ class BookCol extends StatelessWidget {
                       (index) => Item(
                         title: multiBook[index].name,
                         onLongPress: () => {
-                          onTapBook(selfBook[index].id, selfBook[index].name),
+                          onTapBook(multiBook[index].id, multiBook[index].name),
                         },
                         onTap: () async => {
                           await showDialog(

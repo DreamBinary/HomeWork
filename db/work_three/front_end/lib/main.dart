@@ -25,13 +25,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       builder: FToastBuilder(),
-      home: const DefaultTextStyle(
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 20,
-        ),
-        child: Main(),
-      ),
+      home: const Main(),
     );
   }
 }
@@ -49,7 +43,6 @@ class _MainState extends State<Main> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     SharedPreferences.getInstance().then((prefs) => {
           setState(() {
@@ -98,7 +91,6 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Api.getType().then((value) => {
           setState(() {

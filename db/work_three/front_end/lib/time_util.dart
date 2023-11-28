@@ -5,6 +5,6 @@ class TimeUtil {
     var day = timeList[1];
     var month = timeList[2];
     var year = timeList[3];
-    return '$year / $month / $day';
+    return '$year - $month - $day';
   }
 }

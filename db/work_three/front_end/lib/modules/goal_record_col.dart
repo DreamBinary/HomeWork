@@ -39,7 +39,7 @@ class GoalRecordCol extends StatelessWidget {
             children: List.generate(
               data.length,
               (index) => Item(
-                title: "${data[index].createTime}  ==>> ${data[index].money}",
+                title: "${data[index].createTime}    ${data[index].money}",
                 onTap: () async => {
                   await showDialog(
                     context: context,

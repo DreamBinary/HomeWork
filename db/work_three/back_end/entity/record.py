@@ -3,6 +3,7 @@ from datetime import datetime
 
 from database import db
 
+
 @dataclass
 class Record(db.Model):
     __tablename__ = "record"

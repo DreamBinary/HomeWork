@@ -1,7 +1,7 @@
-123from flask import Blueprint, request
+from flask import Blueprint, request
 
 from database import db
-from entity import Record, Type
+from entity import Record
 from views.response import Response
 
 record_bp = Blueprint('record', __name__, url_prefix='/record')
@@ -22,7 +22,6 @@ def get():
             "create_time": record.create_time,
             "update_time": record.update_time
         })
-    print(data)
     return Response(data=data).to_json()
 
 
@@ -45,7 +44,7 @@ def delete():
     record_id = request.form.get('record_id')
     record = Record.query.filter_by(id=record_id).first()
     if record is None:
-        return Response(404, "记录不存在").to_json()
+        return Response(404, msg="记录不存在").to_json()
     else:
         db.session.delete(record)
         db.session.commit()
@@ -62,7 +61,7 @@ def update():
     record = Record.query.filter_by(id=record_id).first()
     is_in = True if is_in == "true" else False
     if record is None:
-        return Response(404, "记录不存在").to_json()
+        return Response(404, msg="记录不存在").to_json()
     else:
         record.type_id = type_id if type_id is not None else record.type_id
         record.name = name if name is not None else record.name

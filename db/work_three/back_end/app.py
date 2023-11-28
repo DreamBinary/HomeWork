@@ -14,9 +14,6 @@ db.init_app(app)
 
 
 def create_app():
-    # with app.app_context():
-    #     db.drop_all()
-    #     db.create_all()
     from views import user_bp, record_bp, book_bp, goal_bp, goal_record_bp, type_bp
     app.register_blueprint(user_bp)
     app.register_blueprint(record_bp)

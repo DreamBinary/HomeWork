@@ -1,6 +1,7 @@
 import 'package:db_show/entity/Goal.dart';
 import 'package:db_show/entity/goal_record.dart';
 import 'package:db_show/net/url.dart';
+import 'package:db_show/toast.dart';
 
 import '../entity/book.dart';
 import '../entity/book_record.dart';
@@ -86,6 +87,7 @@ class Api {
           "description": description,
         },
         null);
+    toast(response?.data["msg"]);
     if (response?.data["code"] == 200) {
       return true;
     }
@@ -103,6 +105,7 @@ class Api {
           "multi": multiUser,
         },
         null);
+    toast(response?.data["msg"]);
     if (response?.data["code"] == 200) {
       return true;
     }
@@ -113,8 +116,8 @@ class Api {
   static Future<bool?> deleteBook(num bookId) async {
     var response =
         await DioUtil().deleteForm(Url.deleteBook, {"book_id": bookId});
+    toast(response?.data["msg"]);
     if (response?.data["code"] == 200) {
-      print(response?.data["msg"]);
       return true;
     }
     return false;
@@ -128,6 +131,7 @@ class Api {
       "name": name,
       "description": description,
     });
+    toast(response?.data["msg"]);
     if (response?.data["code"] == 200) {
       return true;
     }
@@ -146,10 +150,10 @@ class Api {
     return [];
   }
 
-  //delete
   static Future<bool?> deleteRecord(num recordId) async {
     var response =
         await DioUtil().deleteForm(Url.deleteRecord, {"record_id": recordId});
+    toast(response?.data["msg"]);
     if (response?.data["code"] == 200) {
       return true;
     }
@@ -166,6 +170,7 @@ class Api {
       "price": price,
       "is_in": isIn,
     });
+    toast(response?.data["msg"]);
     if (response?.data["code"] == 200) {
       return true;
     }
@@ -184,6 +189,7 @@ class Api {
           "is_in": isIn,
         },
         null);
+    toast(response?.data["msg"]);
     if (response?.data["code"] == 200) {
       return true;
     }
@@ -193,6 +199,7 @@ class Api {
   static Future<List<Goal>?> getGoal(String username) async {
     var response =
         await DioUtil().get(Url.getGoal, map: {"username": username});
+
     if (response?.data["code"] == 200) {
       var data = response?.data["data"];
       var result = List<Goal>.from(data.map((e) => Goal.fromJson(e)));
@@ -212,6 +219,7 @@ class Api {
           "username": username,
         },
         null);
+    toast(response?.data["msg"]);
     if (response?.data["code"] == 200) {
       return true;
     }
@@ -221,6 +229,7 @@ class Api {
   static Future<bool?> deleteGoal(num goalId) async {
     var response =
         await DioUtil().deleteForm(Url.deleteGoal, {"goal_id": goalId});
+    toast(response?.data["msg"]);
     if (response?.data["code"] == 200) {
       return true;
     }
@@ -235,6 +244,7 @@ class Api {
       "description": description,
       "goal_money": goalMoney,
     });
+    toast(response?.data["msg"]);
     if (response?.data["code"] == 200) {
       return true;
     }
@@ -261,6 +271,7 @@ class Api {
           "money": money,
         },
         null);
+    toast(response?.data["msg"]);
     if (response?.data["code"] == 200) {
       return true;
     }
@@ -270,6 +281,7 @@ class Api {
   static Future<bool?> deleteGoalRecord(num goalRecordId) async {
     var response = await DioUtil()
         .deleteForm(Url.deleteGoalRecord, {"goal_record_id": goalRecordId});
+    toast(response?.data["msg"]);
     if (response?.data["code"] == 200) {
       return true;
     }
@@ -281,6 +293,7 @@ class Api {
       "goal_record_id": goalRecordId,
       "money": money,
     });
+    toast(response?.data["msg"]);
     if (response?.data["code"] == 200) {
       return true;
     }

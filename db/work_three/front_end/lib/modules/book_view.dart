@@ -61,7 +61,7 @@ class BookView extends StatelessWidget {
                 },
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  child: Text("修改"),
+                  child: Text("更新"),
                 ),
               ),
             ],

@@ -115,6 +115,12 @@ begin
     where id = new.goal_id;
 end;
 
+delimiter $
+create procedure select_book(in user_id int)
+begin
+    select * from book where book.user_id = user_id;
+end $
+
 
 insert into type (name)
 values ('餐饮'),
@@ -152,7 +158,15 @@ insert into account.record (book_id, type_id, name, price, is_in)
 values (1, 1, '吃饭', 100, 0),
        (2, 13, '家教', 400, 1),
        (1, 1, '汽车', 200, 0),
-       (2, 17, '工资', 4000, 1);
+       (2, 17, '工资', 4000, 1),
+       (1, 3, '购物', 450, 0),
+       (4, 11, '看医生', 150, 0),
+       (1, 3, '网购', 50, 0),
+       (2, 17, '奖金', 2000, 1),
+       (1, 4, '游玩', 300, 0),
+       (3, 8, '还贷', 1678, 0),
+       (2, 16, '收礼', 500, 1);
+
 
 insert into account.multiuser (book_id, user_id)
 values (1, 2),

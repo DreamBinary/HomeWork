@@ -15,7 +15,7 @@ def get():
     username = request.args.get('username')
     user = User.query.filter_by(username=username).first()
     if user is None:
-        return Response(404, "用户不存在").to_json()
+        return Response(404, msg="用户不存在").to_json()
     else:
         goal = user.goal
         data = []
@@ -41,7 +41,7 @@ def add():
     username = request.form.get('username')
     user = User.query.filter_by(username=username).first()
     if user is None:
-        return Response(404, "用户不存在").to_json()
+        return Response(404, msg="用户不存在").to_json()
     else:
         goal = Goal(name=name, goal_money=goal_money, description=description, user_id=user.id)
         db.session.add(goal)
@@ -54,7 +54,7 @@ def delete():
     goal_id = request.form.get('goal_id')
     goal = Goal.query.filter_by(id=goal_id).first()
     if goal is None:
-        return Response(404, "目标不存在").to_json()
+        return Response(404, msg="目标不存在").to_json()
     else:
         db.session.delete(goal)
         db.session.commit()
@@ -69,7 +69,7 @@ def update():
     description = request.form.get('description')
     goal = Goal.query.filter_by(id=goal_id).first()
     if goal is None:
-        return Response(404, "目标不存在").to_json()
+        return Response(404, msg="目标不存在").to_json()
     else:
         goal.name = name
         goal.goal_money = goal_money

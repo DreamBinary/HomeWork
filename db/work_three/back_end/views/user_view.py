@@ -64,4 +64,4 @@ def update():
             return Response(data=False, msg="密码错误").to_json()
         user.password = new_password
         db.session.commit()
-        return Response(data=True, msg="修改成功").to_json()
+        return Response(data=True, msg="更新成功").to_json()
