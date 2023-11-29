@@ -117,8 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
-  }
-}
+  }}
 
 class Block extends StatefulWidget {
   final double scale;
