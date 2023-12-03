@@ -54,6 +54,7 @@ class BookCol extends StatelessWidget {
                             builder: (context) => MyDialog(
                               child: BookView(
                                 book: selfBook[index],
+                                isMulti: false,
                               ),
                             ),
                           ),
@@ -88,6 +89,7 @@ class BookCol extends StatelessWidget {
                             builder: (context) => MyDialog(
                               child: BookView(
                                 book: multiBook[index],
+                                isMulti: true,
                               ),
                             ),
                           ),

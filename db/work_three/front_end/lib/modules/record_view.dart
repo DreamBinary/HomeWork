@@ -103,7 +103,7 @@ class RecordAddView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
         children: [
-          const Text("账本记录", style: TextStyle(fontSize: 20)),
+          const Text("账单记录", style: TextStyle(fontSize: 20)),
           TextRow(title: "记录名 : ", controller: name),
           TextRow(title: "金额 : ", controller: price, isNum: true),
           TypeRow(

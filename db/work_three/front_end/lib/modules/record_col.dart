@@ -30,7 +30,7 @@ class RecordCol extends StatelessWidget {
         if (snapshot.hasData) {
           List<BookRecord> data = snapshot.data!;
           return ListContainer(
-            title: bookName == "null" ? bookName : "$bookName的账单记录",
+            title: bookName == "null" ? "长按账本选择" : "$bookName的账单记录",
             onTapAdd: () async {
               await showDialog(
                 context: context,

@@ -8,13 +8,14 @@ class TextRow extends StatelessWidget {
   final bool isNum;
   final GestureTapCallback? onTap;
 
-  const TextRow(
-      {required this.title,
-      this.readOnly = false,
-      this.isNum = false,
-      this.controller,
-      this.onTap,
-      super.key});
+  const TextRow({
+    required this.title,
+    this.readOnly = false,
+    this.isNum = false,
+    this.controller,
+    this.onTap,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,6 @@ class TextRow extends StatelessWidget {
           ),
           Expanded(
             flex: 4,
-            // onlynum
             child: TextField(
               controller: controller,
               readOnly: readOnly,

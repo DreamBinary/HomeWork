@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 
 class BookView extends StatelessWidget {
   final Book book;
+  final bool isMulti;
 
-  const BookView({required this.book, super.key});
+  const BookView({required this.book, required this.isMulti, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,16 +45,17 @@ class BookView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(
-                onPressed: () async => {
-                  await Api.deleteBook(book.id),
-                  Navigator.pop(context),
-                },
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  child: Text("删除"),
+              if (!isMulti)
+                ElevatedButton(
+                  onPressed: () async => {
+                    await Api.deleteBook(book.id),
+                    Navigator.pop(context),
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    child: Text("删除"),
+                  ),
                 ),
-              ),
               ElevatedButton(
                 onPressed: () async => {
                   await Api.updateBook(book.id, name.text, description.text),
@@ -105,7 +107,6 @@ class BookAddView extends StatelessWidget {
   }
 }
 
-
 class MultiBookAddView extends StatelessWidget {
   final String author;
 
@@ -127,7 +128,8 @@ class MultiBookAddView extends StatelessWidget {
           const Expanded(child: SizedBox()),
           ElevatedButton(
             onPressed: () async => {
-              await Api.addMultiBook(name.text, author, description.text, multi.text),
+              await Api.addMultiBook(
+                  name.text, author, description.text, multi.text),
               Navigator.pop(context),
             },
             child: const Padding(
