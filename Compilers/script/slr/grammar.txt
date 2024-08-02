@@ -1,0 +1,39 @@
+program -> statementList
+index -> int | variable
+type -> integer | double | epsilon
+variable -> type identifier | variable [ index ] | variable [ index ] [ index ]
+variableList -> variable | variable , variableList
+
+statementList -> statement label statementList | epsilon
+statement -> statementNo | statementNo ;
+statementNo -> variableList | variable = assign | expressionList | ifStmt | forStmt | repeat { label statementList } until ( label condition ) | do { label statementList } while ( label condition ) | return expression | break | continue | #
+assign -> expression | fun
+
+fun -> function ( expressionList ) { statementList } | function ( expressionList )
+
+forStmt -> for ( expression ; label condition ; label expression gotoLabel ) label block
+
+ifStmt -> if ( condition ) label block gotoLabel label elIfStmt
+elIfStmt -> else if ( condition ) label block gotoLabel label elIfStmt | else block | epsilon
+
+block -> statement | { statementList }
+
+expressionList -> expression | expression , expressionList
+expression -> computeExpr | partExpr | condition
+partExpr -> variable | int | float | identifier | partExpr = partExpr | ( expression ) | variable ( expressionList )
+
+computeExpr -> sumExpr | incExpr
+sumOp -> + | -
+sumExpr -> sumExpr sumOp mulExpr | mulExpr
+mulOp -> * | /
+mulExpr -> mulExpr mulOp partExpr | partExpr
+incOp -> ++ | --
+incExpr -> partExpr | partExpr incOp
+
+compareOp -> < | > | <= | >= | == | !=
+compareExpr -> computeExpr compareOp computeExpr
+boolExpr -> compareExpr && label compareExpr | compareExpr || label compareExpr
+condition -> compareExpr | boolExpr
+
+label -> epsilon
+gotoLabel -> epsilon
